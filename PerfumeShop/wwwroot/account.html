@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tài khoản — AETERNA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="header"></div>
+
+  <div class="auth-split">
+    <div class="auth-visual" style="background-image:url('https://images.pexels.com/photos/8516167/pexels-photo-8516167.jpeg?auto=compress&cs=tinysrgb&w=1200')">
+      <div class="auth-visual-text">
+        <div class="eyebrow">AETERNA</div>
+        <h2>Olfactory Artisans</h2>
+        <p>Đăng nhập để lưu giỏ hàng và trải nghiệm mua sắm liền mạch.</p>
+      </div>
+    </div>
+    <div class="auth-panel">
+    <div class="auth-wrap">
+    <h1>AETERNA</h1>
+    <p class="auth-sub">Truy cập tài khoản của bạn</p>
+
+    <div class="tabs">
+      <button id="tabLogin" class="active" onclick="switchTab('login')">Đăng nhập</button>
+      <button id="tabRegister" onclick="switchTab('register')">Đăng ký</button>
+    </div>
+
+    <!-- Form đăng nhập -->
+    <form id="loginForm">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="loginEmail" required placeholder="email@example.com" />
+      </div>
+      <div class="field">
+        <label>Mật khẩu</label>
+        <input type="password" id="loginPassword" required placeholder="••••••" />
+      </div>
+      <button type="submit" class="btn btn-dark btn-block" id="loginBtn">Đăng nhập</button>
+    </form>
+
+    <!-- Form đăng ký -->
+    <form id="registerForm" class="hidden">
+      <div class="field">
+        <label>Họ và tên</label>
+        <input type="text" id="regName" required placeholder="Nguyễn Văn A" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="regEmail" required placeholder="email@example.com" />
+      </div>
+      <div class="field">
+        <label>Mật khẩu (tối thiểu 6 ký tự)</label>
+        <input type="password" id="regPassword" required minlength="6" placeholder="••••••" />
+      </div>
+      <button type="submit" class="btn btn-dark btn-block" id="regBtn">Tạo tài khoản</button>
+    </form>
+    </div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    renderHeader();
+    renderFooter();
+
+    // Nếu đã đăng nhập thì về trang chủ
+    if (Auth.isLoggedIn) location.href = 'index.html';
+
+    function switchTab(tab) {
+      const isLogin = tab === 'login';
+      document.getElementById('tabLogin').classList.toggle('active', isLogin);
+      document.getElementById('tabRegister').classList.toggle('active', !isLogin);
+      document.getElementById('loginForm').classList.toggle('hidden', !isLogin);
+      document.getElementById('registerForm').classList.toggle('hidden', isLogin);
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true; btn.textContent = 'Đang xử lý…';
+      try {
+        const data = await api('/auth/login', { method: 'POST', body: {
+          email: document.getElementById('loginEmail').value,
+          password: document.getElementById('loginPassword').value
+        }});
+        Auth.save(data);
+        toast('Đăng nhập thành công ✓');
+        setTimeout(() => location.href = Auth.isAdmin ? 'admin.html' : 'index.html', 700);
+      } catch (err) {
+        toast(err.message);
+        btn.disabled = false; btn.textContent = 'Đăng nhập';
+      }
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('regBtn');
+      btn.disabled = true; btn.textContent = 'Đang xử lý…';
+      try {
+        const data = await api('/auth/register', { method: 'POST', body: {
+          fullName: document.getElementById('regName').value,
+          email: document.getElementById('regEmail').value,
+          password: document.getElementById('regPassword').value
+        }});
+        Auth.save(data);
+        toast('Tạo tài khoản thành công ✓');
+        setTimeout(() => location.href = 'index.html', 700);
+      } catch (err) {
+        toast(err.message);
+        btn.disabled = false; btn.textContent = 'Tạo tài khoản';
+      }
+    });
+  </script>
+</body>
+</html>

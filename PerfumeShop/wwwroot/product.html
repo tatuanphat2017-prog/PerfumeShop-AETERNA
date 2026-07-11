@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi tiết sản phẩm — AETERNA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="header"></div>
+
+  <div class="container">
+    <div id="detail">
+      <div class="loading">Đang tải…</div>
+    </div>
+    <div id="related"></div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    renderHeader('shop');
+    renderFooter();
+
+    const id = new URLSearchParams(location.search).get('id');
+
+    (async () => {
+      const box = document.getElementById('detail');
+      if (!id) { box.innerHTML = `<div class="empty-state"><h3>Không tìm thấy sản phẩm</h3></div>`; return; }
+      try {
+        const p = await api(`/products/${id}`);
+        box.innerHTML = `
+          <nav class="breadcrumb">
+            <a href="index.html">Trang chủ</a> <span>/</span>
+            <a href="shop.html">Sản phẩm</a> <span>/</span>
+            <span class="current">${p.name}</span>
+          </nav>
+          <div class="detail">
+            <div class="detail-media">${productImage(p)}</div>
+            <div class="detail-info">
+              <div class="eyebrow">${p.categoryName || 'Nước hoa'}</div>
+              <h1>${p.name}</h1>
+              <div class="detail-brand">${p.brand || ''}</div>
+              ${ratingHtml(p.id)}
+              <div class="detail-price">${formatVND(p.price)}</div>
+              ${p.notes ? `<div class="detail-notes">${noteTags(p.notes)}</div>` : ''}
+
+              <div class="detail-section">
+                <h3 class="detail-subhead">Mô tả</h3>
+                <p class="detail-desc">${p.description || 'Chưa có mô tả cho sản phẩm này.'}</p>
+              </div>
+
+              <div class="spec-list">
+                <div class="spec-row"><span>Thương hiệu</span><span>${p.brand || '—'}</span></div>
+                <div class="spec-row"><span>Danh mục</span><span>${p.categoryName || '—'}</span></div>
+                <div class="spec-row"><span>Dung tích</span><span>${p.volumeMl} ml</span></div>
+                <div class="spec-row"><span>Tình trạng</span><span>${p.stock > 0 ? 'Còn hàng (' + p.stock + ')' : 'Hết hàng'}</span></div>
+              </div>
+
+              <div class="buy-row">
+                <div class="qty">
+                  <button onclick="changeQty(-1)">−</button>
+                  <span id="qty">1</span>
+                  <button onclick="changeQty(1)">+</button>
+                </div>
+                <button class="btn btn-dark buy-btn" id="addBtn" ${p.stock > 0 ? '' : 'disabled'}>
+                  ${p.stock > 0 ? 'Thêm vào giỏ hàng' : 'Hết hàng'}
+                </button>
+              </div>
+            </div>
+          </div>`;
+        document.getElementById('addBtn').onclick = () => addToCart(p.id);
+        loadRelated(p.categoryId, p.id);
+      } catch (e) {
+        box.innerHTML = `<div class="empty-state"><h3>${e.message}</h3></div>`;
+      }
+    })();
+
+    // Đánh giá sao (trang trí, ổn định theo id sản phẩm)
+    function ratingHtml(pid) {
+      const rating = (4.2 + (pid % 8) / 10).toFixed(1);
+      const reviews = 24 + (pid * 7) % 200;
+      const full = Math.round(rating);
+      const stars = '★'.repeat(full) + '☆'.repeat(5 - full);
+      return `<div class="rating"><span class="stars">${stars}</span> ${rating} · ${reviews} đánh giá</div>`;
+    }
+
+    // Sản phẩm liên quan (cùng danh mục)
+    async function loadRelated(categoryId, excludeId) {
+      const box = document.getElementById('related');
+      try {
+        const list = await api(`/products?categoryId=${categoryId}`);
+        const related = list.filter(x => x.id !== excludeId).slice(0, 4);
+        if (!related.length) return;
+        box.innerHTML = `
+          <div class="section-head" style="margin-top:50px;">
+            <div class="eyebrow">Gợi ý cho bạn</div>
+            <h2 style="font-size:32px;">Sản phẩm liên quan</h2>
+          </div>
+          <div class="product-grid" style="margin-bottom:40px;">${related.map(renderProductCard).join('')}</div>`;
+        initReveal(box);
+      } catch (e) { /* bỏ qua nếu lỗi */ }
+    }
+
+    let qty = 1;
+    function changeQty(d) {
+      qty = Math.max(1, qty + d);
+      document.getElementById('qty').textContent = qty;
+    }
+
+    async function addToCart(pid) {
+      if (!Auth.isLoggedIn) { toast('Vui lòng đăng nhập để mua hàng.'); setTimeout(()=>location.href='account.html', 900); return; }
+      try {
+        await api('/cart/items', { method: 'POST', auth: true, body: { productId: pid, quantity: qty } });
+        toast('Đã thêm vào giỏ hàng ✓');
+        updateCartCount();
+      } catch (e) { toast(e.message); }
+    }
+  </script>
+</body>
+</html>

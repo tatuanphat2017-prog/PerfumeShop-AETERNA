@@ -1,0 +1,144 @@
+================================================================
+        HƯỚNG DẪN SỬ DỤNG WEBSITE AETERNA
+        Website bán nước hoa nam cao cấp
+================================================================
+
+Cảm ơn Quý khách đã sử dụng website AETERNA. Tài liệu này hướng
+dẫn cách sử dụng website cho cả KHÁCH HÀNG và QUẢN TRỊ VIÊN.
+
+----------------------------------------------------------------
+ĐỊA CHỈ TRUY CẬP WEBSITE
+----------------------------------------------------------------
+  http://ttp-aeterna.runasp.net
+  (Đang chờ bật SSL để chuyển sang https:// có ổ khóa an toàn.)
+
+  Lưu ý: nếu lâu không có ai truy cập, lần mở đầu tiên có thể
+  chậm vài giây do máy chủ "thức dậy" — đây là bình thường với
+  gói hosting miễn phí.
+
+
+----------------------------------------------------------------
+1. TÀI KHOẢN QUẢN TRỊ (ADMIN)
+----------------------------------------------------------------
+
+Website có sẵn một tài khoản quản trị viên để quản lý sản phẩm:
+
+    - Email    : admin@perfume.com
+    - Mật khẩu : Admin@123
+
+*** QUAN TRỌNG (đọc kỹ trước khi đưa web vào sử dụng thật) ***
+  - Hãy ĐỔI MẬT KHẨU admin ngay sau khi nhận web, để đảm bảo
+    an toàn.
+  - Không chia sẻ tài khoản admin cho người không có trách nhiệm.
+
+
+----------------------------------------------------------------
+2. CÁC LOẠI TÀI KHOẢN & PHÂN QUYỀN
+----------------------------------------------------------------
+
+Website có 2 loại tài khoản:
+
+  a) KHÁCH HÀNG (User)
+     - Ai cũng tự đăng ký được.
+     - Có thể: xem sản phẩm, tìm kiếm, thêm vào giỏ hàng.
+     - KHÔNG thấy và KHÔNG vào được trang Quản trị.
+
+  b) QUẢN TRỊ VIÊN (Admin)
+     - Do người bán/chủ shop nắm giữ.
+     - Có thể làm mọi thứ của khách hàng, VÀ quản lý sản phẩm,
+       danh mục (thêm / sửa / xóa).
+     - Khi đăng nhập bằng Admin, trên thanh menu sẽ xuất hiện
+       thêm mục "QUẢN TRỊ".
+
+  => Hệ thống tự động chặn: khách hàng thường KHÔNG thể thêm/sửa/
+     xóa sản phẩm dù bằng cách nào.
+
+
+----------------------------------------------------------------
+3. HƯỚNG DẪN CHO KHÁCH HÀNG
+----------------------------------------------------------------
+
+  3.1. Trang chủ
+     - Xem ảnh giới thiệu (tự động chuyển) và các sản phẩm nổi bật.
+
+  3.2. Xem & tìm sản phẩm (menu "SẢN PHẨM")
+     - Lọc theo danh mục: bấm vào tên danh mục (Công sở, Thể thao,
+       Buổi tối...).
+     - Tìm kiếm: gõ tên hoặc thương hiệu vào ô tìm kiếm.
+     - Sắp xếp: chọn "Mới nhất / Giá thấp → cao / Giá cao → thấp".
+
+  3.3. Xem chi tiết sản phẩm
+     - Bấm vào sản phẩm để xem mô tả, nốt hương, dung tích, tồn kho,
+       đánh giá và sản phẩm liên quan.
+
+  3.4. Đăng ký / Đăng nhập (biểu tượng người ở góc phải)
+     - Đăng ký: nhập họ tên, email, mật khẩu (tối thiểu 6 ký tự).
+     - Đăng nhập: nhập email và mật khẩu đã đăng ký.
+
+  3.5. Giỏ hàng (biểu tượng túi ở góc phải)
+     - Cần đăng nhập mới dùng được giỏ hàng.
+     - Bấm "Thêm vào giỏ" trên sản phẩm.
+     - Trong giỏ: tăng/giảm số lượng, xóa sản phẩm, xem tổng tiền.
+
+
+----------------------------------------------------------------
+4. HƯỚNG DẪN CHO QUẢN TRỊ VIÊN (ADMIN)
+----------------------------------------------------------------
+
+  4.1. Đăng nhập admin
+     - Vào trang Đăng nhập, dùng tài khoản admin ở Mục 1.
+     - Sau khi đăng nhập, bấm menu "QUẢN TRỊ" trên thanh trên cùng.
+
+  4.2. Thêm sản phẩm mới
+     - Trong trang Quản trị, bấm nút "+ Sản phẩm".
+     - Điền: Tên, Thương hiệu, Danh mục, Giá (VND), Dung tích (ml),
+       Tồn kho, Link ảnh, Nốt hương, Mô tả.
+     - Bấm "Lưu".
+     * Mẹo về ảnh: dán đường dẫn (link) ảnh sản phẩm vào ô "Link ảnh".
+     * Mẹo về nốt hương: nhập các mùi cách nhau bởi dấu phẩy,
+       ví dụ: Bergamot, Vani, Gỗ đàn hương.
+
+  4.3. Sửa sản phẩm
+     - Bấm "Sửa" ở dòng sản phẩm cần chỉnh, sửa thông tin, bấm "Lưu".
+
+  4.4. Xóa sản phẩm
+     - Bấm "Xóa" ở dòng sản phẩm, xác nhận.
+
+  4.5. Thêm danh mục
+     - Bấm nút "+ Danh mục", nhập tên và mô tả, bấm "Lưu".
+     - Sau khi có danh mục mới, nó sẽ xuất hiện khi thêm sản phẩm
+       và trong bộ lọc ở trang Sản phẩm.
+
+
+----------------------------------------------------------------
+5. CÂU HỎI THƯỜNG GẶP
+----------------------------------------------------------------
+
+  Hỏi: Tôi quên mật khẩu admin?
+  Đáp: Liên hệ đơn vị bàn giao/lập trình để đặt lại.
+
+  Hỏi: Vì sao không thêm được vào giỏ hàng?
+  Đáp: Cần đăng nhập trước khi mua hàng.
+
+  Hỏi: Vì sao không thấy menu "QUẢN TRỊ"?
+  Đáp: Menu này chỉ hiện khi đăng nhập bằng tài khoản Admin.
+
+  Hỏi: Sản phẩm mới thêm chưa có ảnh?
+  Đáp: Kiểm tra lại ô "Link ảnh" đã dán đúng đường dẫn ảnh chưa.
+
+
+----------------------------------------------------------------
+6. LƯU Ý AN TOÀN KHI ĐƯA WEB VÀO SỬ DỤNG THẬT
+----------------------------------------------------------------
+
+  - Đổi mật khẩu tài khoản admin mặc định.
+  - Giữ bí mật thông tin đăng nhập quản trị.
+  - Nên sao lưu (backup) cơ sở dữ liệu định kỳ.
+  - (Kỹ thuật) Đổi khóa bí mật JWT trong file cấu hình trước khi
+    triển khai công khai.
+
+
+================================================================
+  Website AETERNA — Nước hoa nam cao cấp
+  Mọi thắc mắc vui lòng liên hệ đơn vị cung cấp.
+================================================================

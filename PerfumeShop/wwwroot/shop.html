@@ -1,0 +1,116 @@
+    <!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sản phẩm — AETERNA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Les Exclusifs</div>
+        <h2>Bộ sưu tập nước hoa</h2>
+      </div>
+
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="search" placeholder="Tìm theo tên hoặc thương hiệu…" />
+      </div>
+
+      <div class="cat-filters" id="filters"></div>
+
+      <div class="shop-toolbar">
+        <span id="resultCount" class="result-count"></span>
+        <label class="sort-label">
+          Sắp xếp:
+          <select id="sortSelect">
+            <option value="newest">Mới nhất</option>
+            <option value="price-asc">Giá: Thấp → Cao</option>
+            <option value="price-desc">Giá: Cao → Thấp</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="product-grid" id="grid">
+        <div class="loading">Đang tải sản phẩm…</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    renderHeader('shop');
+    renderFooter();
+
+    let activeCategory = null;
+    let searchTerm = '';
+    let sortBy = 'newest';
+    let searchTimer;
+
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      sortBy = e.target.value;
+      loadProducts();
+    });
+
+    // Tải danh mục để tạo bộ lọc
+    (async () => {
+      const filters = document.getElementById('filters');
+      try {
+        const cats = await api('/categories');
+        filters.innerHTML =
+          `<button class="cat-btn active" data-id="">Tất cả</button>` +
+          cats.map(c => `<button class="cat-btn" data-id="${c.id}">${c.name}</button>`).join('');
+
+        filters.querySelectorAll('.cat-btn').forEach(chip => {
+          chip.onclick = () => {
+            filters.querySelectorAll('.cat-btn').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            activeCategory = chip.dataset.id || null;
+            loadProducts();
+          };
+        });
+      } catch (e) { filters.innerHTML = ''; }
+      loadProducts();
+    })();
+
+    document.getElementById('search').addEventListener('input', (e) => {
+      searchTerm = e.target.value.trim();
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(loadProducts, 350); // đợi người dùng gõ xong
+    });
+
+    async function loadProducts() {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = `<div class="loading">Đang tải…</div>`;
+      const params = new URLSearchParams();
+      if (searchTerm) params.append('search', searchTerm);
+      if (activeCategory) params.append('categoryId', activeCategory);
+      try {
+        const products = await api(`/products?${params.toString()}`);
+
+        // Sắp xếp phía client theo lựa chọn
+        if (sortBy === 'price-asc') products.sort((a, b) => a.price - b.price);
+        else if (sortBy === 'price-desc') products.sort((a, b) => b.price - a.price);
+
+        document.getElementById('resultCount').textContent =
+          products.length ? `${products.length} sản phẩm` : '';
+
+        grid.innerHTML = products.length
+          ? products.map(renderProductCard).join('')
+          : `<div class="empty-state" style="grid-column:1/-1;"><h3>Không tìm thấy sản phẩm</h3><p>Thử từ khóa hoặc danh mục khác.</p></div>`;
+        initReveal(grid); // hiệu ứng hiện dần cho sản phẩm
+      } catch (e) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">${e.message}</div>`;
+      }
+    }
+  </script>
+</body>
+</html>

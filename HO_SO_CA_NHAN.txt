@@ -1,0 +1,39 @@
+================================================================
+   HỒ SƠ LÀM VIỆC — Tạ Tuấn Phát
+   (Đầu mỗi project mới, bảo AI: "đọc file HO_SO_CA_NHAN.txt")
+================================================================
+
+VỀ TÔI
+- Sinh viên CNTT, ĐH HUTECH — chuyên ngành Công nghệ Phần mềm.
+- Làm các project nhỏ/vừa: web, thiết kế giao diện, SQL.
+- Mục tiêu: học hỏi, lấy kinh nghiệm/kiến thức để ghi vào CV.
+
+TECH STACK QUEN DÙNG
+- Backend:   ASP.NET Core (C#) — Web API, phân lớp Controller/
+             Service/Data/Model, dùng DTO.
+- Database:  SQL Server + Entity Framework Core (Code First,
+             Migrations).
+- Auth:      JWT + BCrypt, phân quyền Admin/User.
+- Frontend:  HTML/CSS/JS thuần (gọi API bằng fetch), responsive.
+- IDE:       Visual Studio 2022.
+- Deploy:    Hosting free (đã dùng MonsterASP.NET) qua Web Deploy.
+
+SỞ THÍCH THIẾT KẾ
+- Giao diện tối (dark) sang trọng, tông gold, tối giản.
+- Thích animation nhưng ở mức VỪA PHẢI, tinh tế (không lòe loẹt).
+- Tham khảo mẫu UI từ Stitch (Google); ảnh dùng nguồn free (Pexels).
+
+CÁCH TÔI MUỐN AI LÀM VIỆC
+- Trả lời NGẮN GỌN, đi thẳng vào vấn đề, tiếng Việt.
+- HỎI rõ yêu cầu trước khi bắt tay làm project.
+- GIẢI THÍCH cách làm trước khi làm (để tôi hiểu, còn học).
+- Làm xong phần nào REVIEW phần đó, kiểm tra code sạch.
+- Với thao tác lạ (deploy, cấu hình...): hướng dẫn TỪNG BƯỚC NHỎ,
+  mỗi lần một việc, chờ tôi làm xong mới qua bước sau.
+- Khi tôi gửi ảnh mẫu/màn hình: dựa vào đó làm theo.
+
+DỰ ÁN ĐÃ LÀM
+- Website bán nước hoa nam "AETERNA" (full-stack ASP.NET Core +
+  SQL Server + JWT), đã deploy: ttp-aeterna.runasp.net
+  (chi tiết công nghệ xem file CONG_NGHE_SU_DUNG.txt)
+================================================================

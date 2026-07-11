@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giỏ hàng — AETERNA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="header"></div>
+
+  <div class="container">
+    <div class="section-head" style="text-align:left; margin:50px 0 0;">
+      <div class="eyebrow">Giỏ hàng</div>
+      <h2 style="font-size:38px;">Your Atelier Selection</h2>
+    </div>
+    <div id="cartRoot">
+      <div class="loading">Đang tải giỏ hàng…</div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    renderHeader();
+    renderFooter();
+
+    if (!Auth.isLoggedIn) {
+      document.getElementById('cartRoot').innerHTML = emptyLogin();
+    } else {
+      loadCart();
+    }
+
+    async function loadCart() {
+      const root = document.getElementById('cartRoot');
+      try {
+        const cart = await api('/cart', { auth: true });
+        if (!cart.items.length) { root.innerHTML = emptyCart(); return; }
+
+        const count = cart.items.reduce((s, i) => s + i.quantity, 0);
+        root.innerHTML = `
+          <p class="cart-count-line">${count} sản phẩm trong giỏ của bạn</p>
+          <div class="cart-layout">
+            <div>
+              ${cart.items.map(itemHtml).join('')}
+            </div>
+            <div class="summary">
+              <h3>Tóm tắt đơn hàng</h3>
+              <div class="summary-row"><span>Số sản phẩm</span><span>${count}</span></div>
+              <div class="summary-row"><span>Tạm tính</span><span>${formatVND(cart.total)}</span></div>
+              <div class="summary-row"><span>Vận chuyển</span><span>Miễn phí</span></div>
+              <div class="summary-total"><span>Tổng cộng</span><b>${formatVND(cart.total)}</b></div>
+              <button class="btn btn-dark btn-block" style="margin-top:20px;" onclick="checkout()">Thanh toán</button>
+              <a href="shop.html" class="continue-link">← Tiếp tục mua sắm</a>
+              <p style="font-size:12px; color:var(--gray); text-align:center; margin-top:14px; letter-spacing:1px;">🔒 Giao dịch được mã hóa an toàn</p>
+            </div>
+          </div>`;
+      } catch (e) {
+        root.innerHTML = `<div class="empty-state">${e.message}</div>`;
+      }
+    }
+
+    function itemHtml(i) {
+      return `
+        <div class="cart-item">
+          <div class="cart-item-media">${i.imageUrl ? `<img src="${i.imageUrl}" alt="${i.productName}">` : placeholderHtml(i.productName)}</div>
+          <div>
+            <h4>${i.productName}</h4>
+            <div class="notes">${formatVND(i.unitPrice)}</div>
+            <div class="qty">
+              <button onclick="setQty(${i.productId}, ${i.quantity - 1})">−</button>
+              <span>${String(i.quantity).padStart(2,'0')}</span>
+              <button onclick="setQty(${i.productId}, ${i.quantity + 1})">+</button>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div class="product-price" style="margin-bottom:14px;">${formatVND(i.lineTotal)}</div>
+            <button class="link-remove" onclick="removeItem(${i.productId})">Xóa</button>
+          </div>
+        </div>`;
+    }
+
+    async function setQty(productId, quantity) {
+      try {
+        await api('/cart/items', { method: 'PUT', auth: true, body: { productId, quantity } });
+        await loadCart(); updateCartCount();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function removeItem(productId) {
+      try {
+        await api(`/cart/items/${productId}`, { method: 'DELETE', auth: true });
+        toast('Đã xóa khỏi giỏ');
+        await loadCart(); updateCartCount();
+      } catch (e) { toast(e.message); }
+    }
+
+    function checkout() {
+      toast('Chức năng thanh toán sẽ được bổ sung ở phiên bản sau.');
+    }
+
+    function emptyCart() {
+      return `<div class="empty-state">
+        <span class="material-symbols-outlined empty-icon">shopping_bag</span>
+        <h3>Giỏ hàng trống</h3><p>Hãy khám phá bộ sưu tập của chúng tôi.</p>
+        <a href="shop.html" class="btn btn-dark" style="margin-top:20px;">Mua sắm ngay</a></div>`;
+    }
+    function emptyLogin() {
+      return `<div class="empty-state">
+        <span class="material-symbols-outlined empty-icon">lock</span>
+        <h3>Bạn chưa đăng nhập</h3><p>Đăng nhập để xem giỏ hàng của bạn.</p>
+        <a href="account.html" class="btn btn-dark" style="margin-top:20px;">Đăng nhập</a></div>`;
+    }
+  </script>
+</body>
+</html>

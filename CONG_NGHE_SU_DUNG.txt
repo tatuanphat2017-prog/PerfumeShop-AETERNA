@@ -1,0 +1,112 @@
+================================================================
+     CÔNG NGHỆ SỬ DỤNG — DỰ ÁN WEBSITE AETERNA
+     Website bán nước hoa nam cao cấp (Full-stack)
+================================================================
+
+Website LIVE: http://ttp-aeterna.runasp.net
+(sẽ thành https:// sau khi bật SSL)
+
+Tài khoản admin demo: admin@perfume.com / Admin@123
+
+
+----------------------------------------------------------------
+1. TỔNG QUAN
+----------------------------------------------------------------
+Dự án web thương mại điện tử bán nước hoa nam, kiến trúc tách
+biệt Backend (Web API) và Frontend (HTML/CSS/JS thuần gọi API),
+có xác thực, phân quyền, quản trị sản phẩm và triển khai online.
+
+
+----------------------------------------------------------------
+2. BACKEND
+----------------------------------------------------------------
+- Ngôn ngữ:        C#
+- Framework:       ASP.NET Core 8 (Web API)
+- Kiến trúc:       RESTful API, phân lớp Controller - Service -
+                   Data (DbContext) - Model, dùng DTO
+- ORM:             Entity Framework Core 8 (Code First + Migrations)
+- Xác thực:        JWT (JSON Web Token) qua Bearer Token
+- Bảo mật mật khẩu: Băm bằng BCrypt (không lưu mật khẩu gốc)
+- Phân quyền:      Role-based (Admin / User) bằng [Authorize(Roles)]
+- Tài liệu API:    Swagger (OpenAPI)
+- CORS:            Cấu hình cho phép frontend gọi API
+
+  Các API chính: Auth (đăng ký/đăng nhập), Products (CRUD),
+  Categories, Cart (giỏ hàng theo từng người dùng).
+
+
+----------------------------------------------------------------
+3. DATABASE
+----------------------------------------------------------------
+- Hệ quản trị:     Microsoft SQL Server
+- Truy cập:        Entity Framework Core (LINQ)
+- Thiết kế:        Bảng Users, Categories, Products, Carts,
+                   CartItems; quan hệ 1-1, 1-n; ràng buộc khóa
+                   ngoại, unique email
+- Migrations:      InitialCreate, AddProductNotes
+- Seed dữ liệu:    Tự nạp 1 admin + 3 danh mục + 25 sản phẩm khi
+                   database còn trống
+
+
+----------------------------------------------------------------
+4. FRONTEND
+----------------------------------------------------------------
+- Ngôn ngữ:        HTML5, CSS3, JavaScript (thuần, không framework)
+- Giao tiếp API:   Fetch API (bất đồng bộ, async/await)
+- Lưu phiên:       localStorage (lưu JWT token đăng nhập)
+- Thiết kế:        Responsive, theme tối (dark) sang trọng, tông
+                   gold; biến CSS (CSS variables) làm design system
+- Font/Icon:       Google Fonts (Playfair Display, Inter),
+                   Material Symbols
+- Trang:           Trang chủ (landing), Sản phẩm, Chi tiết sản phẩm,
+                   Giỏ hàng, Đăng nhập/Đăng ký, Quản trị, Giới thiệu,
+                   Liên hệ
+
+
+----------------------------------------------------------------
+5. TÍNH NĂNG NỔI BẬT
+----------------------------------------------------------------
+- Đăng ký / đăng nhập, phân quyền Admin & User
+- Trang quản trị: thêm/sửa/xóa sản phẩm, thêm danh mục
+- Xem, tìm kiếm, lọc theo danh mục, sắp xếp theo giá
+- Giỏ hàng: thêm/sửa số lượng/xóa, tính tổng tiền
+- Nhãn nốt hương, đánh giá sao, sản phẩm liên quan
+- Quick View: panel trượt xem nhanh sản phẩm
+
+
+----------------------------------------------------------------
+6. HIỆU ỨNG / UX
+----------------------------------------------------------------
+- Hero slideshow tự chuyển ảnh (crossfade)
+- Scroll-reveal (hiện dần khi cuộn), parallax nhẹ
+- Hiệu ứng chữ xuất hiện theo từng từ
+- Marquee thương hiệu chạy ngang
+- Header thu gọn khi cuộn, chuyển trang mượt (fade)
+- Tôn trọng prefers-reduced-motion (accessibility)
+
+
+----------------------------------------------------------------
+7. CÔNG CỤ & TRIỂN KHAI
+----------------------------------------------------------------
+- IDE:             Visual Studio 2022
+- Quản lý gói:     NuGet
+- Thiết kế mẫu UI: Stitch (Google) — tham khảo giao diện
+- Ảnh:             Nguồn miễn phí (Pexels)
+- Hosting:         MonsterASP.NET (gói free, .NET 8 + SQL Server)
+- Cách deploy:     Web Deploy (Publish Profile) từ Visual Studio
+- Cấu hình môi trường: appsettings.json (local) &
+                   appsettings.Production.json (online) tách biệt
+
+
+----------------------------------------------------------------
+8. KIẾN THỨC THỂ HIỆN (điểm mạnh khi phỏng vấn)
+----------------------------------------------------------------
+- Lập trình hướng đối tượng C#, kiến trúc phân lớp
+- Thiết kế REST API, xử lý bất đồng bộ (async/await)
+- ORM & Code First Migration với EF Core
+- Xác thực JWT, băm mật khẩu, phân quyền theo vai trò
+- Thiết kế CSDL quan hệ
+- Frontend responsive, gọi API, quản lý phiên đăng nhập
+- Triển khai (deploy) ứng dụng web + database lên hosting thật
+
+================================================================

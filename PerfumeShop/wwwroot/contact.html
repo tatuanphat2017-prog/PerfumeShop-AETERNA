@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liên hệ — AETERNA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="header"></div>
+
+  <div class="container">
+    <div class="detail" style="align-items:start;">
+      <div>
+        <div class="eyebrow">Liên hệ</div>
+        <h1 style="font-size:46px; line-height:1.1; margin-bottom:20px;">We invite you to experience the essence of AETERNA.</h1>
+        <p style="color:#b7c2ce; margin-bottom:30px;">Đội ngũ tư vấn của chúng tôi luôn sẵn sàng hỗ trợ bạn tìm ra mùi hương hoàn hảo.</p>
+        <div style="font-size:14px; line-height:2;">
+          <div class="eyebrow" style="margin-bottom:4px;">Thông tin</div>
+          <div>[Email cửa hàng]</div>
+          <div>[Số điện thoại]</div>
+          <div>[Địa chỉ cửa hàng]</div>
+        </div>
+      </div>
+
+      <div style="background:var(--white); border:1px solid var(--line); padding:36px;">
+        <h2 style="font-size:26px; margin-bottom:22px;">Gửi tin nhắn</h2>
+        <form id="contactForm">
+          <div class="field">
+            <label>Họ và tên</label>
+            <input type="text" required placeholder="Your name" />
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" required placeholder="hello@example.com" />
+          </div>
+          <div class="field">
+            <label>Loại yêu cầu</label>
+            <select>
+              <option>Tư vấn chung</option>
+              <option>Đặt hàng</option>
+              <option>Hợp tác</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Nội dung</label>
+            <textarea rows="4" required placeholder="Chúng tôi có thể giúp gì cho bạn?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-dark btn-block">Gửi tin nhắn</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    renderHeader('contact');
+    renderFooter();
+
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.target.reset();
+      toast('Cảm ơn bạn! Tin nhắn đã được ghi nhận.');
+    });
+  </script>
+</body>
+</html>

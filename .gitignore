@@ -1,0 +1,10 @@
+## .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+
+## KHÔNG đẩy cấu hình bí mật & hồ sơ deploy lên Git
+## (chứa mật khẩu database, khóa JWT, thông tin FTP/WebDeploy)
+appsettings.Production.json
+Properties/PublishProfiles/
