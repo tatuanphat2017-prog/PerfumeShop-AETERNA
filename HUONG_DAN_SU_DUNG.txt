@@ -24,7 +24,7 @@ dẫn cách sử dụng website cho cả KHÁCH HÀNG và QUẢN TRỊ VIÊN.
 Website có sẵn một tài khoản quản trị viên để quản lý sản phẩm:
 
     - Email    : admin@perfume.com
-    - Mật khẩu : Admin@123
+    - Mật khẩu : cung cấp khi bàn giao 
 
 *** QUAN TRỌNG (đọc kỹ trước khi đưa web vào sử dụng thật) ***
   - Hãy ĐỔI MẬT KHẨU admin ngay sau khi nhận web, để đảm bảo
