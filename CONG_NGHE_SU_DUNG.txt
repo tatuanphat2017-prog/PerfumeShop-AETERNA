@@ -6,7 +6,7 @@
 Website LIVE: http://ttp-aeterna.runasp.net
 (sẽ thành https:// sau khi bật SSL)
 
-Tài khoản admin demo: admin@perfume.com / Admin@123
+Tài khoản admin demo: admin@perfume.com / cung cấp khi ban giao
 
 
 ----------------------------------------------------------------
