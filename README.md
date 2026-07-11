@@ -47,7 +47,7 @@ PerfumeShop/
 
 ### Tài khoản admin mẫu
 - Email: `admin@perfume.com`
-- Mật khẩu: `Admin@123`
+- Mật khẩu: `Cung cấp khi bàn giao`
 
 ## Bảo mật cần lưu ý trước khi deploy
 - Đổi `Jwt:Key` trong `appsettings.json` thành chuỗi bí mật dài, ngẫu nhiên.
